@@ -1,4 +1,4 @@
-package sample;
+package Interfaz;
 
 public class Controller {
 }
