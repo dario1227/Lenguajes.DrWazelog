@@ -11,6 +11,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import Prolog.Conexion;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Main extends Application {
@@ -28,7 +29,7 @@ public class Main extends Application {
         Linea_conectora linea = Fabrica_elementos_interfaz.crear_linea(nodo,nodo2,32);
         Linea_conectora linea2 = Fabrica_elementos_interfaz.crear_linea(nodo2,nodo3,5);
         System.out.println(Grafo.check_if_node_reachable(nodo3,nodo,new ArrayList<>()));
-        System.out.println(Grafo.saca_linea(nodo,nodo3)!=null);
+        //System.out.println(Grafo.saca_linea(nodo,nodo3)!=null);
         System.out.println(nodo.adjacencia.size());
         System.out.println(Grafo.nodos.size());
         System.out.println(nodo.circulo.getCenterX());
@@ -37,11 +38,12 @@ public class Main extends Application {
 
 
 
-    public static void main(String[] args) {
-      //  Conexion conexion= new Conexion();
-      /////  conexion.test();
-      //  String d="['en','cartago']";
-        //conexion.pregunta(d,1);
+    public static void main(String[] args)throws IOException {
+        Conexion conexion= new Conexion();
+        conexion.addLugar("HOLAS");
+        conexion.addArco("dada","jeje",5);
+        conexion.getLugares();
+        conexion.getArcos();
         launch(args);
     }
 }
