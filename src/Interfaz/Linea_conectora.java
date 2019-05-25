@@ -1,7 +1,11 @@
 package Interfaz;
 
+import Estructuras_logica.Grafo;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+
+import java.util.Random;
 
 public class Linea_conectora  {
     public int peso;
@@ -24,11 +28,21 @@ public class Linea_conectora  {
     public  String get_destino_name(){
         return destino.getnode_name();
     }
-    public void actualizar_bounds(){
-        this.linea.startXProperty().bind(origen.circulo.layoutXProperty().add(origen.circulo.getBoundsInParent().getWidth() /2.0));
-        this.linea.startYProperty().bind(origen.circulo.layoutYProperty().add(origen.circulo.getBoundsInParent().getHeight() /2.0));
-        this.linea.endXProperty().bind(destino.circulo.layoutXProperty().add(destino.circulo.getBoundsInParent().getWidth()/2.0));
-        this.linea.endYProperty().bind(destino.circulo.layoutYProperty().add(destino.circulo.getBoundsInParent().getHeight()/2.0));
+
+    public Linea_conectora(Nodo inicio,Nodo destino,int peso,Label peso_texto,Line linea){
+        this.origen = inicio;
+        this.destino = destino;
+        this.peso = peso;
+        this.peso_texto = peso_texto;
+        this.linea=linea;
+        Grafo.vertices.add(this);
+        origen.adjacencia.add(destino);
+        Random rand = new Random();
+        linea.setStroke(Color.rgb(rand.nextInt(100),rand.nextInt(100),rand.nextInt(100)));
+       // actualizar_bounds();
+        peso_texto.layoutYProperty().bind(origen.circulo.centerYProperty().add(destino.circulo.centerYProperty()).divide(2).add(10));
+        peso_texto.layoutXProperty().bind(origen.circulo.centerXProperty().add(destino.circulo.centerXProperty()).divide(2).add(10));
+
     }
 
 }

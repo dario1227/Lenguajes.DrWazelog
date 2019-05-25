@@ -8,7 +8,7 @@ public class Conexion {
     String prog="consult('GLC.pl')";
     Query q1=new Query(prog);
     public  void test(){
-        System.out.println(prog +(q1.hasSolution()? "Coneccion completada" :"Coneccion Fallida"));
+        System.out.println(prog +(q1.hasSolution()? "Coneccion completada" :"Conec+cion Fallida"));
     }
     private String getResult(String s){
         int x=s.length();

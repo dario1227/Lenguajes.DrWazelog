@@ -1,10 +1,10 @@
 edge("Cartago","San Jose",1).
-edge("Cartago","Limon",3.5).
-edge("Cartago","Heredia",2.5).
+edge("Cartago","Limon",3).
+edge("Cartago","Heredia",2).
 edge("San Jose","Heredia",1).
-edge("San Jose","Alajuela",2.5).
+edge("San Jose","Alajuela",2).
 edge("Heredia","Limon",1).
-edge("Heredia","Alajuela",2.2).
+edge("Heredia","Alajuela",2).
 edge("Limon","Alajuela",1).
 lugares("Limon").
 lugares("Heredia").
