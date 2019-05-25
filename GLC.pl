@@ -18,6 +18,7 @@ verbal2(Verbo,X):-prepo(P),lugar(X),append(P,X,Verbo).
 q3(O,X):-verbal3(V),conec(C,X),append(V,C,O).
 q3(O,X):-conec(O,X).
 q3(X,X):-local(X).
+q3(X,X):-no(X).
 verbal3(V):-verbo2(B),extra(P),append(B,P,V).
 extra(P):-que(C),verbor(X),append(C,X,P).
 extra(P):-verbor(P).
@@ -59,6 +60,7 @@ prepo(['por']).
 prepo(['para']).
 que(['que']).
 prepo2(['al']).
+no(['no']).
 local(['super']).
 local(['restaurante']).
 local(['supermercado']).
