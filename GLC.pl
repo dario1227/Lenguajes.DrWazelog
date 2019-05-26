@@ -9,6 +9,8 @@ nominal1(Sustan):- nombre(Sustan).
 verbal1(Verbo,X):-verbos(V),lugar(X),append(V,X,Verbo).
 verbal1(Verbo,X):-prepo(P),lugar(X), append(P,X,Verbo).
 verbos(S):-verbo(V),prepo(P),append(V,P,S).
+verbos(S):-verbom(V),pepo(P),append(V,P,S).
+verbom(S):-me(M),verbo3(V),append(M,V;S).
 saludos(S):-saludo(T),waze(F),append(T,F,S).
 /*pregunta 2*/
 q2(X,X):-lugar(X),!.
@@ -31,7 +33,10 @@ q5(O,X):-extra5(O,X),!.
 verbal5(B):-se(S),verboL(V),append(S,V,B).
 extra5(X,Y):-prepo(P),lugar(Y),append(P,Y,X).
 se(['se']).
-verboL(['localiza']).
+verbo3(['localizo']).
+verbo3(['ubico']).
+verbo3(['encuentro']).
+verbo3(['localizo']).
 verboL(['ubica']).
 verboL(['encuentra']).
 verboL(['establece']).
@@ -54,6 +59,7 @@ verbo2(['quiero']).
 verbo2(['tendria']).
 nombre(['yo']).
 nombre(['me']).
+me(['me']).
 waze(['wazelog']).
 prepo(['en']).
 prepo(['por']).

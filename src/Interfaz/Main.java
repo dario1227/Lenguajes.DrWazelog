@@ -40,8 +40,7 @@ public class Main extends Application {
 
     public static void main(String[] args)throws IOException {
         Conexion conexion= new Conexion();
-        conexion.addLugar("HOLAS");
-        conexion.addArco("dada","jeje",5);
+        conexion.getCamino("['san jose','limon']","cartago");
         conexion.getLugares();
         conexion.getArcos();
         launch(args);
