@@ -1,7 +1,11 @@
 package Interfaz;
 
 import Estructuras_logica.Grafo;
+import Prolog.Conexion;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
@@ -67,7 +71,55 @@ public class Nodo  {
     };
     private EventHandler<ContextMenuEvent> when_context = (t) ->
     {
-        System.out.println("LOL derecho");
+        ContextMenu menu = menucontexto_config();
+        menu.show(this.circulo, t.getScreenX(), t.getScreenY());
+
+    };
+    public ContextMenu menucontexto_config(){
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem menu1 = new MenuItem("Seleccionar punto partida");
+        menu1.setOnAction(evento_1);
+        MenuItem menu2 = new MenuItem("Seleccionar punto llegada");
+        menu2.setOnAction(evento_3);
+        contextMenu.getItems().addAll(menu1,menu2);
+        return contextMenu;
+    }
+    private EventHandler<ActionEvent> evento_2 = (t)->
+    {
+
+    };
+    private EventHandler<ActionEvent> evento_3 = (t)->
+    {
+        Conexion conectado = new Conexion();
+        paint_Nodes.destino = this;
+        if(paint_Nodes.origen !=null  && paint_Nodes.destino!=null){
+            ArrayList<String> camino = conectado.getCamino("["+paint_Nodes.destino.getnode_name()+"]",paint_Nodes.origen.getnode_name());
+            if(camino==null){
+                return;
+            }
+            if(paint_Nodes.origen.equals(paint_Nodes.destino)){
+                return;
+            }
+            paint_Nodes.pintar_camino(camino);
+        }
+
+    };
+    private EventHandler<ActionEvent> evento_1 = (t)->
+    {
+        Conexion conectaod = new Conexion();
+        paint_Nodes.origen = this;
+        if(paint_Nodes.origen !=null  && paint_Nodes.destino!=null){
+
+            ArrayList<String> camino = conectaod.getCamino("["+paint_Nodes.destino.getnode_name()+"]",paint_Nodes.origen.getnode_name());
+            if(camino==null ){
+                return;
+            }
+            if(paint_Nodes.origen.equals(paint_Nodes.destino)){
+                return;
+            }
+            paint_Nodes.pintar_camino(camino);
+        }
+
     };
 
 }

@@ -38,7 +38,7 @@ public class Main extends Application {
 
     public static void main(String[] args)throws IOException {
         Conexion conexion=new Conexion();
-        conexion.getCamino("['guanacaste']","heredia");
-        //launch(args);
+        conexion.getCamino("['san jose','limon']","cartago");
+        launch(args);
     }
 }

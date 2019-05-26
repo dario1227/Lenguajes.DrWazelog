@@ -10,6 +10,7 @@ public class Poblador_grafo {
 
     public static Conexion conexiom = new Conexion();
     public static void poblar_grafo(){
+
         ArrayList<Integer> ints = new ArrayList<>();
         ints.add(5);
         ints.add(10);
@@ -32,7 +33,6 @@ public class Poblador_grafo {
             Fabrica_elementos_interfaz.create_Nodo(nombre,coord_x,coord_y);
             coord_x = coord_x+150;
         }
-        System.out.println(Grafo.nodos.get(0).getnode_name());
         poblar_grafo_lineas(conexiom.getArcos());
 
     }
@@ -45,11 +45,8 @@ for (int i  = 0;i<arcos.size();i++){
     String destino_n =arcos.get(i).get(1);
     destino_n = destino_n.replaceAll("\\s+","");
 Nodo destino = Grafo.get_Nodo(destino_n);
-if(oridgen==null){
-    System.out.println("El origen fue");
-}
-int f = Grafo.nodos.size();
 int peso = Integer.parseInt(arcos.get(i).get(2));
+
 Fabrica_elementos_interfaz.crear_linea(oridgen,destino,peso);
 
 }

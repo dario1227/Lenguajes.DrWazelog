@@ -89,7 +89,7 @@ public   class Fabrica_elementos_interfaz {
         line.startYProperty().bind(origen.circulo.centerYProperty());
         line.endXProperty().bind(destino.circulo.centerXProperty());
         line.endYProperty().bind(destino.circulo.centerYProperty());
-        line.setStrokeWidth(3);
+        line.setStrokeWidth(6);
         line.setStrokeLineCap(StrokeLineCap.BUTT);
         canvas_princ.getChildren().addAll(label,line);
         line.toBack();
