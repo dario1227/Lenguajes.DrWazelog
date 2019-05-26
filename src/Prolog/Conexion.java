@@ -133,15 +133,21 @@ public class Conexion {
         writer.close();
     }
     public ArrayList<String> getCamino(String destinos, String origen){
-        String prog="consult('GLC.pl')";
-        Query q1=new Query(prog);
-        System.out.println(prog +(q1.hasSolution()? "Coneccion completada" :"Conec+cion Fallida"));
-        ArrayList<String> result= new ArrayList<>();
-        String path="get_whole_path("+destinos+","+"'"+origen+"'"+",X,Y)";
-        Query q2 = new Query(path);
-        Map<String,Term> data= q2.oneSolution();
-        result=parse(getResult(data.get("X").toString()));
-        System.out.println(result);
-        return result;
+        try {
+
+            String prog = "consult('GLC.pl')";
+            Query q1 = new Query(prog);
+            System.out.println(prog + (q1.hasSolution() ? "Coneccion completada" : "Conec+cion Fallida"));
+            ArrayList<String> result = new ArrayList<>();
+            String path = "get_whole_path(" + destinos + "," + "'" + origen + "'" + ",X,Y)";
+            Query q2 = new Query(path);
+            Map<String, Term> data = q2.oneSolution();
+            result = parse(getResult(data.get("X").toString()));
+            System.out.println(result);
+            return result;
+        }
+        catch (Exception e){
+            return null;
+        }
     }
 }
