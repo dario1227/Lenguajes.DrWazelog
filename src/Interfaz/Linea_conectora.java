@@ -16,7 +16,7 @@ public class Linea_conectora  {
     public int getPeso(){
         return this.peso;
     }
-    public void set_datos(Nodo origen,Nodo destino,int peso,Label pes_texto){
+    public void set_datos(Nodo origen, Nodo destino, int peso, Label pes_texto){
         this.origen = origen;
         this.destino = destino;
         this.peso = peso;
@@ -29,7 +29,7 @@ public class Linea_conectora  {
         return destino.getnode_name();
     }
 
-    public Linea_conectora(Nodo inicio,Nodo destino,int peso,Label peso_texto,Line linea){
+    public Linea_conectora(Nodo inicio, Nodo destino, int peso, Label peso_texto, Line linea){
         this.origen = inicio;
         this.destino = destino;
         this.peso = peso;

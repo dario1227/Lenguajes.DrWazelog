@@ -1,16 +1,13 @@
 package Interfaz;
 
-import javafx.scene.effect.DropShadow;
-import javafx.scene.paint.Color;
-import javafx.scene.Group;
-import javafx.scene.shape.Circle;
 import javafx.scene.control.Label;
-
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public   class Fabrica_elementos_interfaz {
@@ -27,7 +24,7 @@ public   class Fabrica_elementos_interfaz {
      * @param coordy es la coordenada inicial en y del nodo
      * @return retorna el nodo
      */
-    public static Nodo create_Nodo(String nombre,int coordx ,int coordy){
+    public static Nodo create_Nodo(String nombre, int coordx , int coordy){
         Random rand = new Random();
         Circle circle = new Circle(coordx,coordy,50,Color.rgb(rand.nextInt(100),rand.nextInt(100),rand.nextInt(100)));
         circle.setStroke(Color.rgb(rand.nextInt(100),rand.nextInt(100),rand.nextInt(100)));
@@ -53,7 +50,7 @@ public   class Fabrica_elementos_interfaz {
      */
     public static Nodo create_Nodo(String nombre){
         Random rand = new Random();
-        Circle circle = new Circle(0,0,50,Color.rgb(rand.nextInt(100),rand.nextInt(100),rand.nextInt(100)));
+        Circle circle = new Circle(100,100,50,Color.rgb(rand.nextInt(100),rand.nextInt(100),rand.nextInt(100)));
         circle.setStroke(Color.rgb(rand.nextInt(100),rand.nextInt(100),rand.nextInt(100)));
         circle.setStrokeWidth(2);
         Label label = new Label(nombre);
@@ -65,7 +62,7 @@ public   class Fabrica_elementos_interfaz {
         circle.setEffect(ds);
         canvas_princ.getChildren().addAll(circle,label);
         label.setLabelFor(circle);
-        label.relocate(0-10,0);
+        label.relocate(70,100);
 
         Nodo nodo = new Nodo(nombre,circle, label);
         return nodo;
@@ -78,7 +75,7 @@ public   class Fabrica_elementos_interfaz {
      * @param peso este es el peso que tiene la linea(por el grafo)
      * @return retorna una Linea conectora
      */
-    public static Linea_conectora crear_linea( Nodo origen , Nodo destino,int peso ){
+    public static Linea_conectora crear_linea(Nodo origen , Nodo destino, int peso ){
         Label label = new Label(Integer.toString(peso));
         Line line = new Line();
         DropShadow ds = new DropShadow();

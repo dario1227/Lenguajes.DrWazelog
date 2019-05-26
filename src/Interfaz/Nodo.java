@@ -2,16 +2,24 @@ package Interfaz;
 
 import Estructuras_logica.Grafo;
 import Prolog.Conexion;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.ContextMenu;
+import javafx.scene.control.*;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
-import javafx.scene.control.Label;
+
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Nodo  {
     private String node_name;
@@ -81,11 +89,91 @@ public class Nodo  {
         menu1.setOnAction(evento_1);
         MenuItem menu2 = new MenuItem("Seleccionar punto llegada");
         menu2.setOnAction(evento_3);
-        contextMenu.getItems().addAll(menu1,menu2);
+        MenuItem menu3 = new MenuItem("Crear nuevo lugar");
+        menu3.setOnAction(evento_2);
+        contextMenu.getItems().addAll(menu1,menu2,menu3);
         return contextMenu;
     }
+
     private EventHandler<ActionEvent> evento_2 = (t)->
     {
+        Dialog<Entrys_crear> dialog = new Dialog<>();
+        dialog.setTitle("Crear localizacion");
+        dialog.setHeaderText("Por favor introduce los datos");
+        DialogPane dialogPane = dialog.getDialogPane();
+        dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        TextField textField = new TextField("Nombre Lugar");
+        TextField textField2 = new TextField("Km camino");
+        dialogPane.setContent(new VBox(8, textField, textField2));
+//        ArrayList<String> name_of_nodes
+//        ObservableList<String> options =
+//                FXCollections.observableArrayList();
+//        ComboBox<Venue> comboBox = new ComboBox<>(options);
+        dialog.setResultConverter((ButtonType button) -> {
+            if (button == ButtonType.OK) {
+                if (button == ButtonType.OK) {
+                    return new Entrys_crear(textField.getText(),this.node_name,textField2.getText());
+                }
+                return null;
+            }
+            return null;
+        });
+
+        Optional<Entrys_crear> optionalResult = dialog.showAndWait();
+        optionalResult.ifPresent((Entrys_crear results) -> {
+            int x;
+            try{
+                x = Integer.parseInt(results.peso);
+            }catch (Exception e){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Kilometros");
+                alert.setHeaderText("Error,Km numero");
+                alert.setContentText("Los kilometros deben de ser un numero entero");
+                alert.showAndWait();
+                return;
+            }
+            if (results.peso ==null || results.peso=="Km camino" ||results.peso==""){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("No numero");
+                alert.setHeaderText("Error,Km numero");
+                alert.setContentText("Debe de insertar un kilometraje");
+                alert.showAndWait();
+                return;
+            }
+            if(results.nombre_nuevo.isEmpty() || results.nombre_nuevo=="Nombre Lugar"||results.nombre_nuevo ==null){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("No nombre");
+                alert.setHeaderText("Debe insertarse nombre");
+                alert.showAndWait();
+                return;
+            }
+            if(Grafo.existencia(results.nombre_nuevo)){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Ya existe");
+                alert.setHeaderText("El nodo ya existe, el programa no diferencia entre mayuscula/espacios/minusculas");
+                alert.showAndWait();
+                return;
+            }
+            Conexion conectado = new Conexion();
+            try {
+
+                String nodo = results.nombre_nuevo.toLowerCase();
+                nodo = nodo.replaceAll("\\s+","");
+                Fabrica_elementos_interfaz.create_Nodo(nodo);
+                conectado.addArco(nodo,results.nombre_destino,x);
+                conectado.addLugar(nodo);
+                Fabrica_elementos_interfaz.crear_linea(Grafo.get_Nodo(nodo),Grafo.get_Nodo(results.nombre_destino),x);
+
+            } catch (IOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Archivo no encontrado");
+                alert.setHeaderText("El archivo de prolog inexistente/corrupto");
+                alert.setContentText("El archivo de prolog esta corrupto o es inexistente");
+                alert.showAndWait();
+                return;
+            }
+        });
+
 
     };
     private EventHandler<ActionEvent> evento_3 = (t)->
@@ -94,12 +182,42 @@ public class Nodo  {
         paint_Nodes.destino = this;
         if(paint_Nodes.origen !=null  && paint_Nodes.destino!=null){
             ArrayList<String> camino = conectado.getCamino("["+paint_Nodes.destino.getnode_name()+"]",paint_Nodes.origen.getnode_name());
-            if(camino==null){
-                return;
-            }
+            if(camino==null ){
+                if(paint_Nodes.origen.equals(paint_Nodes.destino)){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Error el nodo de origen no puede ser igual al de llegada");
+                    alert.showAndWait();
+                    paint_Nodes.destino = null;
+                    paint_Nodes.origen = null;
+                    paint_Nodes.reset();
+                    return;
+                }
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("No existe un camino entre los dos lugares");
+
+                alert.showAndWait();
+                paint_Nodes.destino = null;
+                paint_Nodes.origen = null;
+                paint_Nodes.destino = null;
+                paint_Nodes.origen = null;
+                paint_Nodes.reset();
+                return;}
             if(paint_Nodes.origen.equals(paint_Nodes.destino)){
-                return;
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Error el nodo de origen no puede ser igual al de llegada");
+
+                alert.showAndWait();
+                paint_Nodes.destino = null;
+                paint_Nodes.origen = null;
+                paint_Nodes.reset();
             }
+
             paint_Nodes.pintar_camino(camino);
         }
 
@@ -112,14 +230,67 @@ public class Nodo  {
 
             ArrayList<String> camino = conectaod.getCamino("["+paint_Nodes.destino.getnode_name()+"]",paint_Nodes.origen.getnode_name());
             if(camino==null ){
+                if(paint_Nodes.destino.equals(paint_Nodes.origen)){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Error el nodo de origen no puede ser igual al de llegada");
+
+                    alert.showAndWait();
+                    paint_Nodes.reset();
+                    paint_Nodes.destino = null;
+                    paint_Nodes.origen = null;
+                    return;
+                }
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("No existe un camino entre los dos lugares");
+                alert.showAndWait();
+                paint_Nodes.destino = null;
+                paint_Nodes.origen = null;
+                paint_Nodes.reset();
                 return;
             }
             if(paint_Nodes.origen.equals(paint_Nodes.destino)){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Error el nodo de origen no puede ser igual al de llegada");
+                alert.showAndWait();
+                paint_Nodes.destino = null;
+                paint_Nodes.origen = null;
+                paint_Nodes.reset();
+            }
+            if (camino==null){
                 return;
             }
             paint_Nodes.pintar_camino(camino);
         }
 
     };
+    private EventHandler<ActionEvent> evento4 = (t)->
+    {
+        ArrayList<String> name_of_nodes = Grafo.get_names(this.node_name);
+        ObservableList<String> options = FXCollections.observableArrayList();
+        ComboBox<String> comboBox = new ComboBox<>(options);
+        comboBox.getSelectionModel().selectFirst();
+        Dialog<Entrys_crear> dialog = new Dialog<>();
+        dialog.setTitle("Dialog Test");
+        dialog.setHeaderText("Please specify…");
+        DialogPane dialogPane = dialog.getDialogPane();
+        dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
+        dialog.setResultConverter((ButtonType button) -> {
+            if (button == ButtonType.OK) {
+//                return new Results(textField.getText(),
+//                        datePicker.getValue(), comboBox.getValue());
+            }
+            return null;
+        });
+        Optional<Entrys_crear> optionalResult = dialog.showAndWait();
+        optionalResult.ifPresent((Entrys_crear results) -> {
+
+        });
+    };
 }

@@ -25,12 +25,13 @@ public class Main extends Application {
         Scene escena_princ = new Scene(panel, 800, 800);
         primaryStage.setScene(escena_princ);
         Poblador_grafo.poblar_grafo();
+        System.out.println();
         System.out.println(Grafo.nodos.size());
         Conexion conexion = new Conexion();
         System.out.println(conexion.getCamino("[limon]","cartago"));
-        ArrayList<String> camino = new ArrayList<>();
-        camino.add("cartago");
-        camino.add("limon");
+        System.out.println(Grafo.existencia("cartago"));
+        System.out.println(Grafo.get_Nodo("cartago"));
+        System.out.println(Grafo.sacaarcos(Grafo.get_Nodo("sanjose"),Grafo.get_Nodo("heredia")));
         primaryStage.show();
     }
 

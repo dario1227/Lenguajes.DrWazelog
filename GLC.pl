@@ -9,7 +9,7 @@ init():-convertir(). /*Inicia el programa*/
 % aplica un lower case (string_lower) y lo almacena en una lista
 % (atomic_list_concat), luego llama a intermedia pasandole L1 que es la
 % lista que contiene la oracion que ingreso el usuario.
-convertir():-write('DrWazeLog: Bienvenido a WazeLog la mejor lógica de llegar a su destino. Por Favor indíqueme donde se encuentra.')
+convertir():-write('DrWazeLog: Bienvenido a WazeLog la mejor lï¿½gica de llegar a su destino. Por Favor indï¿½queme donde se encuentra.')
 ,nl
 ,write('Usuario: ')
 ,read_line_to_string(user_input, Cs)
@@ -44,7 +44,7 @@ intermedia(Oracion):-write('Me encuentro en Q1'),nl,
 % no seguir acarreandolo como lista y llama a intermedia2 pasandole como
 % parametros el origen y la lista que contiene la oracion ingresada por
 % el usuario.
-convertir2(OrigenL):-write('DrWazeLog: Muy bien, ¿Cuál es su destino?')
+convertir2(OrigenL):-write('DrWazeLog: Muy bien, ï¿½Cuï¿½l es su destino?')
 ,nl
 ,write('Usuario: ')
 ,read_line_to_string(user_input, Cs)
@@ -84,7 +84,7 @@ intermedia2(Origen,Oracion):-write('Me encuentro en Q2'),nl,
 % le pasa como parametros el origen del usuario, la lista de los
 % destinos que quiere visitar y la respuesta del usuario a la pregunta
 % realizada.
-convertir3(Origen,LugaresDestino):-nl,write('DrWazwLog: '),write('Excelente, ¿Tiene algún destino intermedio?')
+convertir3(Origen,LugaresDestino):-nl,write('DrWazwLog: '),write('Excelente, ï¿½Tiene algï¿½n destino intermedio?')
 ,nl
 ,write('Usuario: ')
 ,read_line_to_string(user_input, Cs)
@@ -140,7 +140,7 @@ printPath([X|Resto]):-write(X),write(', '),printPath(Resto).
 % lo almacena en una lista (atomic_list_concat),Llama a intermedia4 y le
 % pasa como parametros el origen del usuario, la lista de los destinos a
 % visitar y la lista que contiene la respuesta del usuario.
-convertir4(Origen,LugaresDestino):-nl,write('¿Dónde se encuentra?')
+convertir4(Origen,LugaresDestino):-nl,write('ï¿½Dï¿½nde se encuentra?')
 ,nl
 ,write('Usuario: ')
 ,read_line_to_string(user_input, Cs)
@@ -304,7 +304,7 @@ local(['hotel']).
 /*------------------------------------------------Gramatica Libre de Contexto-------------------------------------------*/
 
 /************************************************GRAFO***********************************************************/
-connected(X,Y,L) :- edge(X,Y,L) ; edge(Y,X,L).
+connected(X,Y,L) :- edge(X,Y,L).
 
 path(A,B,Path,Len) :-
        travel(A,B,[A],Q,Len),

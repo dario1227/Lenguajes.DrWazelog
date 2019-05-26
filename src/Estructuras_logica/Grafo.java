@@ -16,8 +16,27 @@ public class Grafo {
         this.nodos = new ArrayList<Nodo>();
         this.vertices = new ArrayList<Linea_conectora>();
     }
+    public static ArrayList<String> get_names(String not){
+        ArrayList<String> lista = new ArrayList<>();
+        for (int i = 0; i<nodos.size();i++){
+            if(nodos.get(i).getnode_name().equals(not) ){
+                lista.add(nodos.get(i).getnode_name());
+            }
+        }
+        return lista;
+    }
+    public static boolean existencia(String nombre){
+        nombre = nombre.toLowerCase();
+        nombre = nombre.replaceAll("\\s+","");
+        for (int i = 0; i<nodos.size();i++){
+            if (nodos.get(i).getnode_name().equals(nombre)){
+                return true;
+            }
+        }
+        return false;
+    }
 
-//    public void add_nodes(String origen,String destino,int peso,int coordx, int coordy,int coordx2, int coordy2){
+    //    public void add_nodes(String origen,String destino,int peso,int coordx, int coordy,int coordx2, int coordy2){
 //        Nodo origen_aux = get_Nodo(origen);
 //        Nodo destino_aux = get_Nodo(destino);
 //        if(origen_aux == null){
@@ -74,14 +93,14 @@ public class Grafo {
     }
 
     public static ArrayList<Linea_conectora> get_lineas(ArrayList<Nodo> caminos) {
-    int x = caminos.size();
-    int y = 0;
-    ArrayList<Linea_conectora> conectoras = new ArrayList<>();
-    while (y<x-1){
-        conectoras.add(sacaarcos(caminos.get(y),caminos.get(y+1)));
-        y++;
-    }
-    return conectoras;
+        int x = caminos.size();
+        int y = 0;
+        ArrayList<Linea_conectora> conectoras = new ArrayList<>();
+        while (y<x-1){
+            conectoras.add(sacaarcos(caminos.get(y),caminos.get(y+1)));
+            y++;
+        }
+        return conectoras;
     }
 
 }
