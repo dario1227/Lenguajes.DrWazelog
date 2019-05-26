@@ -12,8 +12,6 @@ import java.util.List;
 public class Grafo {
     public static ArrayList<Nodo> nodos = new ArrayList<>();
     public static ArrayList<Linea_conectora> vertices = new ArrayList<>();
-    public static Nodo actual;
-    public static Nodo  destino;
     public Grafo(){
         this.nodos = new ArrayList<Nodo>();
         this.vertices = new ArrayList<Linea_conectora>();
@@ -57,13 +55,33 @@ public class Grafo {
      * @param nombre es el parametro de busqueda
      * @return retorna un nodo con el nombre anteriormente mencionado
      */
-    public Nodo get_Nodo(String nombre){
-        for (int i = 0  ; i != this.nodos.size() ;i++){
-            if(nodos.get(i).getnode_name() == nombre){
+    public static Nodo get_Nodo(String nombre){
+        for (int i = 0  ; i != nodos.size() ;i++){
+            if(nodos.get(i).getnode_name().equals(nombre)){
                 return  nodos.get(i);
             }
         }
         return null;
+    }
+    public static Linea_conectora sacaarcos(Nodo nodo1 ,Nodo nodo2){
+        for (int i = 0;i<vertices.size();i++){
+            if(vertices.get(i).origen.equals(nodo1) && vertices.get(i).destino.equals(nodo2)){
+                return vertices.get(i);
+            }
+        }
+        return null;
+
+    }
+
+    public static ArrayList<Linea_conectora> get_lineas(ArrayList<Nodo> caminos) {
+    int x = caminos.size();
+    int y = 0;
+    ArrayList<Linea_conectora> conectoras = new ArrayList<>();
+    while (y<x-1){
+        conectoras.add(sacaarcos(caminos.get(y),caminos.get(y+1)));
+        y++;
+    }
+    return conectoras;
     }
 
 }

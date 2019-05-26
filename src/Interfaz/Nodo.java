@@ -24,6 +24,7 @@ public class Nodo  {
     public   Nodo( String texto,Circle circulo,Label label){
 
         this.label = label;
+        this.node_name = texto;
         this.circulo = circulo;
         Grafo.nodos.add(this);
         this.circulo.setOnMousePressed(mousePressedEventHandler);
@@ -46,7 +47,7 @@ public class Nodo  {
         c.setCenterX(c.getCenterX() + offsetX);
         c.setCenterY(c.getCenterY() + offsetY);
         label.setLayoutY(c.getCenterY() -10 );
-        label.setLayoutX(c.getCenterX() -10 );
+        label.setLayoutX(c.getCenterX() -30 );
         label.toFront();
 
         orgSceneX = t.getSceneX();

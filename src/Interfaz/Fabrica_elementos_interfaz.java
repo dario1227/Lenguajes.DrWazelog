@@ -41,7 +41,7 @@ public   class Fabrica_elementos_interfaz {
         circle.setEffect(ds);
         canvas_princ.getChildren().addAll(circle,label);
         label.setLabelFor(circle);
-        label.relocate(coordx-10,coordy);
+        label.relocate(coordx-30,coordy);
         Nodo nodo = new Nodo(nombre,circle, label);
         return nodo;
     }
