@@ -31,14 +31,14 @@ public class Main extends Application {
         ArrayList<String> camino = new ArrayList<>();
         camino.add("cartago");
         camino.add("limon");
-        camino.add()
-paint_Nodes.pintar_camino(;
         primaryStage.show();
     }
 
 
 
     public static void main(String[] args)throws IOException {
-        launch(args);
+        Conexion conexion=new Conexion();
+        conexion.getCamino("['san jose','limon']","cartago");
+        //launch(args);
     }
 }

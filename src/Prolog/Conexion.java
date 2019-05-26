@@ -11,6 +11,33 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class Conexion {
+    private ArrayList<String>  parse(String s){
+        int x=s.length();
+        int i=0;
+        String data="";
+        ArrayList<String> result=new ArrayList<>();
+        while(x!=i){
+            String c= Character.toString(s.charAt(i));{
+                if (c.equals(" ")){
+                    if (data.equals("san")){
+                        data+=" ";
+                    }
+                    else{
+                        result.add(data);
+                        data="";
+                    }
+
+                }
+                else{
+                    data+=c;
+                }
+            }
+            i++;
+        }
+        return result;
+
+    }
+
     private String getResult(String s){
         int x=s.length();
         int i=0;
@@ -113,8 +140,7 @@ public class Conexion {
         String path="get_whole_path("+destinos+","+"'"+origen+"'"+",X,Y)";
         Query q2 = new Query(path);
         Map<String,Term> data= q2.oneSolution();
-        result.add(getResult(data.get("X").toString()));
-        result.add(getResult(data.get("Y").toString()));
+        result=parse(getResult(data.get("X").toString()));
         System.out.println(result);
         return result;
     }
