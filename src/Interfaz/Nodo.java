@@ -15,6 +15,7 @@ import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
 
 import java.awt.*;
 import java.io.IOException;
@@ -94,7 +95,9 @@ public class Nodo  {
         MenuItem menu4 = new MenuItem("Añadir calle");
         menu4.setOnAction(evento4);
         menu2.setOnAction(evento_3);
-        contextMenu.getItems().addAll(menu1,menu2,menu3,menu4);
+        MenuItem menu5 = new MenuItem("Calles");
+        menu5.setOnAction(evento_5);
+        contextMenu.getItems().addAll(menu1,menu2,menu3,menu4,menu5);
         return contextMenu;
     }
 
@@ -276,8 +279,8 @@ public class Nodo  {
         ComboBox<String> comboBox = new ComboBox<>(options);
         comboBox.getSelectionModel().selectFirst();
         Dialog<Entrys_crear> dialog = new Dialog<>();
-        dialog.setTitle("Dialog Test");
-        dialog.setHeaderText("Please specify…");
+        dialog.setTitle("Nueva calle");
+        dialog.setHeaderText("Selecciona el destino y el kilometraje");
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
         TextField textField2 = new TextField("Km camino");
@@ -334,9 +337,26 @@ public class Nodo  {
                 alert.showAndWait();
                 return;
             }
-
-
-
         });
+    };
+
+    private EventHandler<ActionEvent> evento_5 = (t)->
+    {
+        VBox box =new VBox(8);
+        Dialog<Entrys_crear> dialog = new Dialog<>();
+        dialog.setTitle("Caminos ");
+        dialog.setHeaderText("Estas son las diferentes calles");
+
+        for (int x=0;x<Grafo.vertices.size();x++){
+            String nombre_origen = Grafo.vertices.get(x).origen.getnode_name();
+            String nombre_destino = Grafo.vertices.get(x).destino.getnode_name();
+            String km = Integer.toString(Grafo.vertices.get(x).peso);
+            Label label = new Label("Origen: "+ nombre_origen +" Destino: " + nombre_destino+ " " + km +"km");
+            box.getChildren().addAll(label);
+        }
+        DialogPane dialogPane = dialog.getDialogPane();
+        dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        dialogPane.setContent(box);
+        dialog.showAndWait();
     };
 }

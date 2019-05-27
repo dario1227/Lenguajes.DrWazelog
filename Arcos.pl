@@ -9,3 +9,4 @@ edge('limon','alajuela',1).
 edge('guanacaste2.0','cartago',12).
 edge('guanacaste2.0','puntarenas',23).
 edge('puntarenas','guanacaste2.0',34).
+edge('sanjose','guanacaste',23).

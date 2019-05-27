@@ -280,7 +280,7 @@ waze(['wazelog']).
 prepo(['en']).
 prepo(['por']).
 prepo(['para']).
-
+prepo(['hacia']).
 prepo2(['al']).
 
 /*Locales*/
