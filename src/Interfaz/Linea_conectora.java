@@ -39,10 +39,14 @@ public class Linea_conectora  {
         origen.adjacencia.add(destino);
         Random rand = new Random();
         linea.setStroke(Color.rgb(rand.nextInt(100),rand.nextInt(100),rand.nextInt(100)));
-       // actualizar_bounds();
-        peso_texto.layoutYProperty().bind(origen.circulo.centerYProperty().add(destino.circulo.centerYProperty()).divide(2).add(-20));
-        peso_texto.layoutXProperty().bind(origen.circulo.centerXProperty().add(destino.circulo.centerXProperty()).divide(2).add(-20));
+        if(Grafo.sacaarcos(destino,inicio)!=null) {
+            peso_texto.layoutYProperty().bind(origen.circulo.centerYProperty().add(destino.circulo.centerYProperty()).divide(2).add(-20));
+            peso_texto.layoutXProperty().bind(origen.circulo.centerXProperty().add(destino.circulo.centerXProperty()).divide(2).add(-20));
+        }
+        else{    peso_texto.layoutYProperty().bind(origen.circulo.centerYProperty().add(destino.circulo.centerYProperty()).divide(2).add(20));
+            peso_texto.layoutXProperty().bind(origen.circulo.centerXProperty().add(destino.circulo.centerXProperty()).divide(2).add(20));
 
+        }
     }
 
 }

@@ -51,6 +51,10 @@ public class paint_Nodes {
         System.out.println("El largo lineas fue" + linea.size());
         for (int i = 0;i<linea.size();i++){
             linea.get(i).linea.setStroke(Color.RED);
+            linea.get(i).linea.toFront();
+            linea.get(i).destino.circulo.toFront();
+            linea.get(i).origen.circulo.toFront();
+            linea.get(i).origen.label.toFront();linea.get(i).destino.label.toFront();
         }
     }
 }

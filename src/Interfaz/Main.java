@@ -24,17 +24,11 @@ public class Main extends Application {
         Fabrica_elementos_interfaz.setCanvas_princ(panel);
         Scene escena_princ = new Scene(panel, 800, 800);
         primaryStage.setScene(escena_princ);
+        Conexion conectado = new Conexion();
         Poblador_grafo.poblar_grafo();
-        System.out.println();
-        System.out.println(Grafo.nodos.size());
-        Conexion conexion = new Conexion();
-        System.out.println(conexion.getCamino("[limon]","cartago"));
-        System.out.println(Grafo.existencia("cartago"));
-        System.out.println(Grafo.get_Nodo("cartago"));
-        System.out.println(Grafo.sacaarcos(Grafo.get_Nodo("sanjose"),Grafo.get_Nodo("heredia")));
+        System.out.println(conectado.getCamino("["+"'puntarenas'"+"]","guanacaste2.0"));
         primaryStage.show();
     }
-
 
 
     public static void main(String[] args)throws IOException {

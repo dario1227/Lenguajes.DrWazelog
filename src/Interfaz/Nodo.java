@@ -180,7 +180,7 @@ public class Nodo  {
         Conexion conectado = new Conexion();
         paint_Nodes.destino = this;
         if(paint_Nodes.origen !=null  && paint_Nodes.destino!=null){
-            ArrayList<String> camino = conectado.getCamino("["+paint_Nodes.destino.getnode_name()+"]",paint_Nodes.origen.getnode_name());
+            ArrayList<String> camino = conectado.getCamino("['"+paint_Nodes.destino.getnode_name()+"']",paint_Nodes.origen.getnode_name());
             if(camino==null ){
                 if(paint_Nodes.origen.equals(paint_Nodes.destino)){
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -227,7 +227,7 @@ public class Nodo  {
         paint_Nodes.origen = this;
         if(paint_Nodes.origen !=null  && paint_Nodes.destino!=null){
 
-            ArrayList<String> camino = conectaod.getCamino("["+paint_Nodes.destino.getnode_name()+"]",paint_Nodes.origen.getnode_name());
+            ArrayList<String> camino = conectaod.getCamino("['"+paint_Nodes.destino.getnode_name()+"']",paint_Nodes.origen.getnode_name());
             if(camino==null ){
                 if(paint_Nodes.destino.equals(paint_Nodes.origen)){
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -239,6 +239,7 @@ public class Nodo  {
                     paint_Nodes.reset();
                     paint_Nodes.destino = null;
                     paint_Nodes.origen = null;
+                    paint_Nodes.reset();
                     return;
                 }
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
