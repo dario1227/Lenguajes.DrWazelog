@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * Una clase que representa el grafo, tiene una lista de nodos y de arcos
+ *
  */
 public class Grafo {
     public static ArrayList<Nodo> nodos = new ArrayList<>();
