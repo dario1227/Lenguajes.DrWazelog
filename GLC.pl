@@ -434,6 +434,7 @@ por lo que realiza un tipo de "Append" a la reversa para obtene todos los camino
 
 get_whole_path([],_,[],0).
 get_whole_path([X |Destinos],Origen,Camino,Largo):-
+        X \= Origen,
        shortest(Origen,X,Camino_2,Largo_2),
       append_1(Camino_2,Camino_fin,Camino),
        get_whole_path(Destinos,X,Camino_fin,Largo_final),Largo is Largo_final + Largo_2.
