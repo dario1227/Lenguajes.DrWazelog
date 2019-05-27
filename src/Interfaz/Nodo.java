@@ -249,7 +249,9 @@ public class Nodo  {
                 alert.showAndWait();
                 paint_Nodes.destino = null;
                 paint_Nodes.origen = null;
+
                 paint_Nodes.reset();
+                return;
             }
 
             paint_Nodes.pintar_camino(camino);
@@ -299,6 +301,7 @@ public class Nodo  {
                 paint_Nodes.destino = null;
                 paint_Nodes.origen = null;
                 paint_Nodes.reset();
+                return;
             }
             if (camino==null){
                 return;
