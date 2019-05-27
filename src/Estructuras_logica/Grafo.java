@@ -9,6 +9,9 @@ import java.security.cert.TrustAnchor;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Una clase que representa el grafo, tiene una lista de nodos y de arcos
+ */
 public class Grafo {
     public static ArrayList<Nodo> nodos = new ArrayList<>();
     public static ArrayList<Linea_conectora> vertices = new ArrayList<>();
@@ -16,6 +19,12 @@ public class Grafo {
         this.nodos = new ArrayList<Nodo>();
         this.vertices = new ArrayList<Linea_conectora>();
     }
+
+    /**
+     * Consigue todos los nombres de los nodos excepto uno
+     * @param not este es el nombre descartado que no estara en la lista de resultado
+     * @return una lista con el nombre de todos los nodos excepto 1
+     */
     public static ArrayList<String> get_names(String not){
         ArrayList<String> lista = new ArrayList<>();
         for (int i = 0; i<nodos.size();i++){
@@ -25,6 +34,12 @@ public class Grafo {
         }
         return lista;
     }
+
+    /**
+     * Esta funcion lo que hace es examinar si un nodo ya existe
+     * @param nombre este es el nombre que se quiere comparar
+     * @return retorna falso si no encuentra un nodo y true si lo encuentra
+     */
     public static boolean existencia(String nombre){
         nombre = nombre.toLowerCase();
         nombre = nombre.replaceAll("\\s+","");
@@ -35,40 +50,6 @@ public class Grafo {
         }
         return false;
     }
-
-    //    public void add_nodes(String origen,String destino,int peso,int coordx, int coordy,int coordx2, int coordy2){
-//        Nodo origen_aux = get_Nodo(origen);
-//        Nodo destino_aux = get_Nodo(destino);
-//        if(origen_aux == null){
-//            origen_aux = Fabrica_elementos_interfaz.create_Nodo(origen,coordx,coordy);
-//            nodos.add(origen_aux);
-//        }
-//        if(destino_aux== null){
-//            destino_aux = Fabrica_elementos_interfaz.create_Nodo(destino,coordx2,coordy2);
-//            nodos.add(destino_aux);
-//        }
-//        Linea_conectora linea = Fabrica_elementos_interfaz.crear_linea(origen_aux,destino_aux,peso);
-//        vertices.add(linea);
-//        linea.actualizar_bounds();
-//    }
-    public static boolean check_if_node_reachable(Nodo inicio, Nodo ending,ArrayList<Nodo> visitados){
-        if(visitados.contains(inicio)){
-            return false;
-        }
-        visitados.add(inicio);
-
-        if (inicio.equals(ending)) {
-            return true;
-        }
-        for(int i =0; i<inicio.adjacencia.size();i++){
-            if(check_if_node_reachable(inicio.adjacencia.get(i),ending,visitados) ){
-                return true;
-            }
-        }
-        return false;
-    }
-
-
     /**
      * Recibe un nombre y retorna el nodo segun el valor
      * @param nombre es el parametro de busqueda
@@ -82,6 +63,13 @@ public class Grafo {
         }
         return null;
     }
+
+    /**
+     * Retona la calle correspondiente entre dos nodos
+     * @param nodo1 este es el nodo en el que inicia el arco/calle
+     * @param nodo2 este es el nodo en el que termina el arco/calle
+     * @return retorna el arco entre los dos nodos
+     */
     public static Linea_conectora sacaarcos(Nodo nodo1 ,Nodo nodo2){
         for (int i = 0;i<vertices.size();i++){
             if(vertices.get(i).origen.equals(nodo1) && vertices.get(i).destino.equals(nodo2)){
@@ -92,6 +80,11 @@ public class Grafo {
 
     }
 
+    /**
+     * Esta consigue todos los arcos correspondientes a un camino de nodos
+     * @param caminos este es una lista de los lugares en orden
+     * @return retorna uan lista de arcos que corresponden al camino mencionado
+     */
     public static ArrayList<Linea_conectora> get_lineas(ArrayList<Nodo> caminos) {
         int x = caminos.size();
         int y = 0;

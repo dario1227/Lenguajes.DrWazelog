@@ -28,7 +28,7 @@ public   class Fabrica_elementos_interfaz {
         Random rand = new Random();
         Circle circle = new Circle(coordx,coordy,50,Color.rgb(rand.nextInt(100),rand.nextInt(100),rand.nextInt(100)));
         circle.setStroke(Color.rgb(rand.nextInt(100),rand.nextInt(100),rand.nextInt(100)));
-        circle.setStrokeWidth(2);
+        circle.setStrokeWidth(4);
         Label label = new Label(nombre);
         label.setTextFill(Color.WHITE);
         DropShadow ds = new DropShadow();
@@ -52,7 +52,7 @@ public   class Fabrica_elementos_interfaz {
         Random rand = new Random();
         Circle circle = new Circle(100,100,50,Color.rgb(rand.nextInt(100),rand.nextInt(100),rand.nextInt(100)));
         circle.setStroke(Color.rgb(rand.nextInt(100),rand.nextInt(100),rand.nextInt(100)));
-        circle.setStrokeWidth(2);
+        circle.setStrokeWidth(4);
         Label label = new Label(nombre);
         label.setTextFill(Color.WHITE);
         DropShadow ds = new DropShadow();

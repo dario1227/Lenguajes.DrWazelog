@@ -7,28 +7,27 @@ import javafx.scene.shape.Line;
 
 import java.util.Random;
 
+/**
+ * Esta es la que funciona como un arco, contiene el nodo de origen y el nodo de destino, un label que
+ * tiene el peso y una linea que conecta los dos nodos anteriormente mencionados
+ */
 public class Linea_conectora  {
     public int peso;
     public Nodo origen;
     public Nodo destino;
     public Label peso_texto;
     public Line linea;
-    public int getPeso(){
-        return this.peso;
-    }
-    public void set_datos(Nodo origen, Nodo destino, int peso, Label pes_texto){
-        this.origen = origen;
-        this.destino = destino;
-        this.peso = peso;
-        this.peso_texto = pes_texto;
-    }
-    public String get_origin_name(){
-        return origen.getnode_name();
-    }
-    public  String get_destino_name(){
-        return destino.getnode_name();
-    }
 
+    /**
+     * Este es el constructor, recibe el nodo de inicio y el de destino
+     * su peso y un label con el peso, al mismo tiempo una linea para conectar todos
+     * y enlazar sus coordenadas
+     * @param inicio es el nodo donde arranca la linea
+     * @param destino es el nodo donde termina la linea
+     * @param peso es el kilometraje de la "Calle"
+     * @param peso_texto es un label conteniendo el numero anterior
+     * @param linea es una linea
+     */
     public Linea_conectora(Nodo inicio, Nodo destino, int peso, Label peso_texto, Line linea){
         this.origen = inicio;
         this.destino = destino;

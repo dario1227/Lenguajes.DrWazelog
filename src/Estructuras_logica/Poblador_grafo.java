@@ -9,6 +9,11 @@ import java.util.ArrayList;
 public class Poblador_grafo {
 
     public static Conexion conexiom = new Conexion();
+
+    /**
+     * Esta funcion se conecta con la clase que se conecta con la base de datos de prolog
+     * toma la lista de elementos y pobla el grafo con estos
+     */
     public static void poblar_grafo(){
 
         ArrayList<Integer> ints = new ArrayList<>();
@@ -37,6 +42,11 @@ public class Poblador_grafo {
 
     }
 
+    /**
+     * esta funcion toma todas las lineas del grafo leidas desde el archivo de prolog
+     * y crea todas las calles, poblando el grafo
+     * @param arcos estos son todos los arcos en forma de string
+     */
     private static void poblar_grafo_lineas(ArrayList<ArrayList<String>> arcos) {
 for (int i  = 0;i<arcos.size();i++){
     String origen_name =arcos.get(i).get(0);
@@ -46,7 +56,6 @@ for (int i  = 0;i<arcos.size();i++){
     destino_n = destino_n.replaceAll("\\s+","");
 Nodo destino = Grafo.get_Nodo(destino_n);
 int peso = Integer.parseInt(arcos.get(i).get(2));
-
 Fabrica_elementos_interfaz.crear_linea(oridgen,destino,peso);
 
 }

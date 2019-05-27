@@ -27,16 +27,12 @@ public class Main extends Application {
         Scene escena_princ = new Scene(panel, 800, 800);
         panel.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
         primaryStage.setScene(escena_princ);
-        Conexion conectado = new Conexion();
         Poblador_grafo.poblar_grafo();
-        System.out.println(conectado.getCamino("["+"'puntarenas'"+"]","guanacaste2.0"));
         primaryStage.show();
     }
 
 
     public static void main(String[] args)throws IOException {
-        Conexion conexion=new Conexion();
-        conexion.getCamino("['san jose','limon']","cartago");
         launch(args);
     }
 }

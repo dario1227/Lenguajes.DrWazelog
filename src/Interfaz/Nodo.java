@@ -15,25 +15,38 @@ import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
-import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
-
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ * Esta clase nodo como lo dice representa un nodo del grafo
+ * Circle es un circulo que pertenece al grafo
+ * orgScenex y orgSceneY son variables double para manejar los eventos drag and drop
+ * Label es el nombre del nodo
+ * adjacencia son todos los nodos a los que esta conectado
+ */
 public class Nodo  {
     private String node_name;
     public Circle circulo;
     public Label label;
     public double orgSceneX, orgSceneY;
     public ArrayList<Nodo> adjacencia = new ArrayList<>();
-    public    double orgTranslateX, orgTranslateY;
 
+    /**
+     *
+     * @return el nombre del nodo
+     */
     public String getnode_name(){
         return node_name;
     }
 
+    /**
+     * Esta es el constructor del nodo
+     * @param texto este es el nombre qie tiene el circulo
+     * @param circulo este es un circulo de java
+     * @param label este es un label conteniendo el nombre
+     */
     public   Nodo( String texto,Circle circulo,Label label){
 
         this.label = label;
@@ -50,6 +63,9 @@ public class Nodo  {
 
     }
 
+    /**
+     * Esta es una funcion que maneja el evento de drag and drop, actualiza las posiciones necesarias
+     */
     private EventHandler<MouseEvent> mouseDraggedEventHandler = (t) ->
     {
         double offsetX = t.getSceneX() - orgSceneX;
@@ -66,24 +82,32 @@ public class Nodo  {
         orgSceneX = t.getSceneX();
         orgSceneY = t.getSceneY();
     };
-
+    /**
+     * Este es el evento que determina cuando es presionado un nodo, lo cual lo manda hacia en frente
+     * del scene
+     */
     private EventHandler<MouseEvent> mousePressedEventHandler = (t) ->
     {
         orgSceneX = t.getSceneX();
         orgSceneY = t.getSceneY();
-
-        // bring the clicked circle to the front
-
         Circle c = this.circulo;
         c.toFront();
         label.toFront();
     };
+    /**
+     * Esta lo que hace es desplegar el menu de contexto
+     */
     private EventHandler<ContextMenuEvent> when_context = (t) ->
     {
         ContextMenu menu = menucontexto_config();
         menu.show(this.circulo, t.getScreenX(), t.getScreenY());
 
     };
+
+    /**
+     * Esta lo que hace es crear un menucontexto
+     * @return
+     */
     public ContextMenu menucontexto_config(){
         ContextMenu contextMenu = new ContextMenu();
         MenuItem menu1 = new MenuItem("Seleccionar punto partida");
@@ -101,6 +125,10 @@ public class Nodo  {
         return contextMenu;
     }
 
+    /**
+     * Esta lo que genera es un evento cuando se selecciona una de las opciones del menu de cobtexto;
+     * genera una ventana que permite a la persona crear localizaciones
+     */
     private EventHandler<ActionEvent> evento_2 = (t)->
     {
         Dialog<Entrys_crear> dialog = new Dialog<>();
@@ -178,6 +206,10 @@ public class Nodo  {
 
 
     };
+    /**
+     * Este tambien es un evento y  lo que hace es seleccionar el nodo que fue tocado
+     * y lo marca como un destino
+     */
     private EventHandler<ActionEvent> evento_3 = (t)->
     {
         Conexion conectado = new Conexion();
@@ -224,6 +256,9 @@ public class Nodo  {
         }
 
     };
+    /**
+     * Este evento lo que hace es definir el nodo como un origen
+     */
     private EventHandler<ActionEvent> evento_1 = (t)->
     {
         Conexion conectaod = new Conexion();
@@ -272,6 +307,9 @@ public class Nodo  {
         }
 
     };
+    /**
+     * Esta lo que hace es crear una calle entre dos destinos, genera la ventana de seleccion
+     */
     private EventHandler<ActionEvent> evento4 = (t)->
     {
         ArrayList<String> name_of_nodes = Grafo.get_names(this.node_name);
