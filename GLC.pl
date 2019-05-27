@@ -304,48 +304,59 @@ local(['hotel']).
 /*------------------------------------------------Gramatica Libre de Contexto-------------------------------------------*/
 
 /************************************************GRAFO***********************************************************/
+/* esta funcion lo que hace es analizar si dos nodos estan conectados */
 connected(X,Y,L) :- edge(X,Y,L).
-
+/*esta lo que obtiene es un camino y al final lo que hace es revertirlo ya que el append
+da el camino al reves*/
 path(A,B,Path,Len) :-
        travel(A,B,[A],Q,Len),
        reverse(Q,Path).
-
+/*
+esta como lo dice su nombre es hacer un viaje, solo si estos nodos estan conectados*/
 travel(A,B,P,[B|P],L) :-
        connected(A,B,L).
+       /*esta funcion lo que realiza son los diferentes viajes, mientras que el camino no sea un nodo ya visitado o un nodo catual
+       por lo que solo escoje los nodos posibles validos y va sumando todo el viaje */
 travel(A,B,Visited,Path,L) :-
        connected(A,C,D),
        C \== B,
        \+member(C,Visited),
        travel(C,B,[C|Visited],Path,L1),
        L is D+L1.
-
+/* esta es la funcion principal que llama a sacar el camono mas pequeño posible
+por lo que recibe un inicio (A) y un final (B) y retorna un camino y largo, calcula todos los posibles
+ y llama a la funcion minima que los compara y escoja los menores*/
 shortest(A,B,Path,Length) :-
    setof([P,L],path(A,B,P,L),Set),
    Set = [_|_], % fail if empty
    minimal(Set,[Path,Length]).
-
+/*esta funcionn es llamada para ver cual es el menor camino posible entre todos los posibles*/
 minimal([F|R],M) :- min(R,F,M).
 
-% minimal path
+% minimal path, esta funcion como los hechos lo que hace es sacar el path minimo, por lo que hace la comparacion
 min([],M,M).
+/*Aqui se hace la comparacion de que el largo entre dos elementos sea menor al otro, para escoger al menor*/
 min([[P,L]|R],[_,M],Min) :- L < M, !, min(R,[P,L],Min).
 min([_|R],M,Min) :- min(R,M,Min).
-
+/*Esta es una funcion extra del append, para conectar los diferentes caminos*/
 append_1([],X,X).
 append_1([X|W],Z,[X|C]):- append(W,Z,C).
+/* Esta funcion lo que realiza es la optencion del todo el camino, recibe una lista de destinos
+y un origen, esta asume que al final el camino es vacio y los destinos tambien,
+por lo que realiza un tipo de "Append" a la reversa para obtene todos los caminos, ademas de ir sumando el largo de cada uno*/
 
 get_whole_path([],_,[],0).
 get_whole_path([X |Destinos],Origen,Camino,Largo):-
        shortest(Origen,X,Camino_2,Largo_2),
       append_1(Camino_2,Camino_fin,Camino),
        get_whole_path(Destinos,X,Camino_fin,Largo_final),Largo is Largo_final + Largo_2.
-
+/*Esta funcion como su nombre lo dice elimina un elemento de una lista*/
 delete_one(_, [], []).
 delete_one(Term, [Term|Tail], Tail).
 delete_one(Term, [Head|Tail], [Head|Result]) :-
   delete_one(Term, Tail, Result),!.
 
-
+/* elimina todas las apareciones de un elemento en una lista*/
 delete_all([],X,X).
 delete_all([X|Z],Lista,Resultado):-
        delete_one(X,Lista,Result),delete_all(Z,Result,Resultado).
