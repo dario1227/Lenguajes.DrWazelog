@@ -91,7 +91,10 @@ public class Nodo  {
         menu2.setOnAction(evento_3);
         MenuItem menu3 = new MenuItem("Crear nuevo lugar");
         menu3.setOnAction(evento_2);
-        contextMenu.getItems().addAll(menu1,menu2,menu3);
+        MenuItem menu4 = new MenuItem("Añadir calle");
+        menu4.setOnAction(evento4);
+        menu2.setOnAction(evento_3);
+        contextMenu.getItems().addAll(menu1,menu2,menu3,menu4);
         return contextMenu;
     }
 
@@ -105,10 +108,6 @@ public class Nodo  {
         TextField textField = new TextField("Nombre Lugar");
         TextField textField2 = new TextField("Km camino");
         dialogPane.setContent(new VBox(8, textField, textField2));
-//        ArrayList<String> name_of_nodes
-//        ObservableList<String> options =
-//                FXCollections.observableArrayList();
-//        ComboBox<Venue> comboBox = new ComboBox<>(options);
         dialog.setResultConverter((ButtonType button) -> {
             if (button == ButtonType.OK) {
                 if (button == ButtonType.OK) {
@@ -272,7 +271,7 @@ public class Nodo  {
     private EventHandler<ActionEvent> evento4 = (t)->
     {
         ArrayList<String> name_of_nodes = Grafo.get_names(this.node_name);
-        ObservableList<String> options = FXCollections.observableArrayList();
+        ObservableList<String> options = FXCollections.observableArrayList(name_of_nodes);
         ComboBox<String> comboBox = new ComboBox<>(options);
         comboBox.getSelectionModel().selectFirst();
         Dialog<Entrys_crear> dialog = new Dialog<>();
@@ -280,16 +279,62 @@ public class Nodo  {
         dialog.setHeaderText("Please specify…");
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-
+        TextField textField2 = new TextField("Km camino");
+        dialogPane.setContent(new VBox(8, textField2, comboBox));
         dialog.setResultConverter((ButtonType button) -> {
             if (button == ButtonType.OK) {
-//                return new Results(textField.getText(),
-//                        datePicker.getValue(), comboBox.getValue());
+                return new Entrys_crear(this.node_name,comboBox.getValue(),textField2.getText());
             }
             return null;
         });
         Optional<Entrys_crear> optionalResult = dialog.showAndWait();
         optionalResult.ifPresent((Entrys_crear results) -> {
+            int x;
+            try{
+                x = Integer.parseInt(results.peso);
+            }catch (Exception e){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Kilometros");
+                alert.setHeaderText("Error,Km numero");
+                alert.setContentText("Los kilometros deben de ser un numero entero");
+                alert.showAndWait();
+                return;
+            }
+
+            if(Grafo.sacaarcos(Grafo.get_Nodo(results.nombre_nuevo),Grafo.get_Nodo(results.nombre_destino))!=(null)){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("La calle ya existe");
+                alert.showAndWait();
+                return;
+            }
+            if (results.peso ==null || results.peso=="Km camino" ||results.peso==""){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("No numero");
+                alert.setHeaderText("Error,Km numero");
+                alert.setContentText("Debe de insertar un kilometraje");
+                alert.showAndWait();
+                return;
+            }
+            Conexion conectado = new Conexion();
+            try {
+
+                String nodo = results.nombre_nuevo.toLowerCase();
+                nodo = nodo.replaceAll("\\s+","");
+                conectado.addArco(results.nombre_nuevo,results.nombre_destino,x);
+                Fabrica_elementos_interfaz.crear_linea(Grafo.get_Nodo(nodo),Grafo.get_Nodo(results.nombre_destino),x);
+
+            } catch (IOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Archivo no encontrado");
+                alert.setHeaderText("El archivo de prolog inexistente/corrupto");
+                alert.setContentText("El archivo de prolog esta corrupto o es inexistente");
+                alert.showAndWait();
+                return;
+            }
+
+
 
         });
     };

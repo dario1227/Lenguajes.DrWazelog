@@ -19,7 +19,7 @@ public class Grafo {
     public static ArrayList<String> get_names(String not){
         ArrayList<String> lista = new ArrayList<>();
         for (int i = 0; i<nodos.size();i++){
-            if(nodos.get(i).getnode_name().equals(not) ){
+            if(!nodos.get(i).getnode_name().equals(not) ){
                 lista.add(nodos.get(i).getnode_name());
             }
         }
