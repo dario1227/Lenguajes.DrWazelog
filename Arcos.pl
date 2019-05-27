@@ -1,13 +1,11 @@
 /*Archivo con los arcos disponibles*/
-edge('cartago','sanjose',1).
-edge('cartago','limon',3).
-edge('cartago','heredia',2).
-edge('sanjose','heredia',1).
-edge('sanjose','alajuela',2).
-edge('heredia','limon',1).
-edge('heredia','alajuela',2).
-edge('limon','alajuela',1).
-edge('guanacaste2.0','cartago',12).
-edge('guanacaste2.0','puntarenas',23).
-edge('puntarenas','guanacaste2.0',34).
-edge('sanjose','guanacaste',23).
+edge('cartago','sanjose',25).
+edge('cartago','limon',146).
+edge('sanjose','heredia',12).
+edge('sanjose','alajuela',20).
+edge('heredia','limon',156).
+edge('heredia','alajuela',12).
+edge('guanacaste','puntarenas',135).
+edge('puntarenas','sanjose',97).
+edge('puntarenas','alajuela',98).
+edge('limon','sanjose',161).
