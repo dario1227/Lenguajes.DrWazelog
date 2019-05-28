@@ -1,4 +1,5 @@
 package Interfaz.drwazelog;
+
 import javafx.geometry.Insets;
 import Estructuras_logica.drwazelog.Poblador_grafo;
 import javafx.application.Application;
@@ -9,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+@SuppressWarnings("ALL")
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -23,7 +25,7 @@ public class Main extends Application {
     }
 
 
-    public static void main(String[] args)throws IOException {
+    public static void main(String[] args) throws IOException {
         launch(args);
     }
 }
