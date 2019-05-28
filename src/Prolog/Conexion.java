@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class Conexion {
-    // Funcion que recibe un string de lugares que luego son parseados para que elimine los espacion y retorne uns arrya de estod
+    // Funcion que recibe un string de lugares que luego son parseados para que elimine los espacios y retorne uns array de esto
     private ArrayList<String>  parse(String s){
         int x=s.length();
         int i=0;
