@@ -1,3 +1,4 @@
+/*Archivo von los lugares identificados*/
 lugar(['guanacaste']).
 lugar(['sanjose']).
 lugar(['limon']).

@@ -1,3 +1,4 @@
+/*Archivo con los arcos disponibles*/
 edge('cartago','sanjose',1).
 edge('cartago','limon',3).
 edge('cartago','heredia',2).
