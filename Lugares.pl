@@ -6,4 +6,3 @@ lugar(['puntarenas']).
 lugar(['alajuela']).
 lugar(['heredia']).
 lugar(['cartago']).
-lugar(['nicaragua']).

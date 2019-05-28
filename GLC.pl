@@ -9,7 +9,7 @@ init():-sendRead(). /*Inicia el programa*/
 % case (string_lower) y lo almacena en una lista (atomic_list_concat),
 % luego llama a interpreter pasandole L1 que es la lista que contiene la
 % oracion que ingreso el usuario.
-sendRead():-write('DrWazeLog: Bienvenido a WazeLog la mejor l�gica de llegar a su destino. Por Favor ind�queme donde se encuentra.')
+sendRead():-write('DrWazeLog: Bienvenido a WazeLog la mejor logica de llegar a su destino. Por Favor indiqueme donde se encuentra.')
 ,nl
 ,write('Usuario: ')
 ,read_line_to_string(user_input, Cs)
@@ -44,7 +44,7 @@ interpreter(Oracion):-nl,
 % no seguir acarreandolo como lista y llama a interpreter2 pasandole
 % como parametros el origen y la lista que contiene la oracion ingresada
 % por el usuario.
-sendRead2(OrigenL):-write('DrWazeLog: Muy bien, �Cu�l es su destino?')
+sendRead2(OrigenL):-write('DrWazeLog: Muy bien, Cual es su destino?')
 ,nl
 ,write('Usuario: ')
 ,read_line_to_string(user_input, Cs)
@@ -84,7 +84,7 @@ interpreter2(Origen,Oracion):-nl,
 % le pasa como parametros el origen del usuario, la lista de los
 % destinos que quiere visitar y la respuesta del usuario a la pregunta
 % realizada.
-sendRead3(Origen,LugaresDestino):-nl,write('DrWazeLog: '),write('Excelente, �Tiene alg�n destino intermedio?')
+sendRead3(Origen,LugaresDestino):-nl,write('DrWazeLog: '),write('Excelente, Tiene algun destino intermedio?')
 ,nl
 ,write('Usuario: ')
 ,read_line_to_string(user_input, Cs)
@@ -124,7 +124,7 @@ interpreter3(Origen,LugaresDestino,Oracion):-nl,
 % Llama a interpreter3 y le pasa como parametros el origen del usuario,
 % la lista de los destinos que quiere visitar y la respuesta del usuario
 % a la pregunta realizada.
-sendRead4(Origen,LugaresDestino,LugarPasar):-nl,write('DrWazeLog: �Cu�l '),write(LugarPasar),write('?')
+sendRead4(Origen,LugaresDestino,LugarPasar):-nl,write('DrWazeLog: Cual '),write(LugarPasar),write('?')
 ,nl
 ,write('Usuario: ')
 ,read_line_to_string(user_input, Cs)
@@ -157,10 +157,10 @@ interpreter4(Origen,LugaresDestino,Oracion):-nl,
 % de nuevo en ese destino y busca el siguiente hasta llegar al final,
 % finalmente le indica la distancia que hay al tomar esa ruta.
 validaRuta(Origen,Lugares):-get_whole_path(Lugares,Origen,X,Y),!,write('DrWazeLog: Su ruta es: '),printPath(X),write(' con una
-distancia de: '),write(Y),write(' km.'),nl,write('Muchas gracias por su preferencia. �Hasta la pr�xima!').
+distancia de: '),write(Y),write(' km.'),nl,write('Muchas gracias por su preferencia. Hasta la proxima!').
 % Si no encuentra una ruta a los destinos deseados, envia un mensaje de
 % error y vuelve el inicio del programa para que intente de nuevo.
-validaRuta(Origen,Lugares):-(not(get_whole_path(Lugares,Origen,X,Y))),write('DrWazeLog: No se encuentra ruta alguna para visitar todos los destinos deseados, por favor intente de nuevo.'),nl,sendRead(),nl.
+validaRuta(Origen,Lugares):-(not(get_whole_path(Lugares,Origen,X,Y))),write('DrWazeLog: No se encuentra ruta alguna para visitar todos los destinos deseados, por favor intente de nuevo.'),nl,nl,sendRead(),nl.
 
 % Recibe una lista con los destinos a visitar y los va imprimiendo
 % (mostrando) hasta que la lista sea vacia lo que indica que ya no hay
@@ -177,7 +177,7 @@ printPath([X|Resto]):-write(X),write(', '),printPath(Resto).
 % lo almacena en una lista (atomic_list_concat),Llama a interpreter4 y
 % le pasa como parametros el origen del usuario, la lista de los
 % destinos a visitar y la lista que contiene la respuesta del usuario.
-sendRead5(Origen,LugaresDestino,LugarPasar):-nl,write('DrWazeLog: �D�nde se encuentra '),write(LugarPasar),write('?')
+sendRead5(Origen,LugaresDestino,LugarPasar):-nl,write('DrWazeLog: Donde se encuentra '),write(LugarPasar),write('?')
 ,nl
 ,write('Usuario: ')
 ,read_line_to_string(user_input, Cs)
