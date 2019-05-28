@@ -1,6 +1,6 @@
-package Interfaz;
+package Interfaz.drwazelog;
 
-import Estructuras_logica.Grafo;
+import Estructuras_logica.drwazelog.Grafo;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;

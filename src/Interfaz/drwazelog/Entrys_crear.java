@@ -1,4 +1,4 @@
-package Interfaz;
+package Interfaz.drwazelog;
 
 /**
  * Esta clase es generalmente usada para almacenar los entrys en una ventana en la cual

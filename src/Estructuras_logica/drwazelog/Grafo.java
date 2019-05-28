@@ -1,13 +1,9 @@
-package Estructuras_logica;
+package Estructuras_logica.drwazelog;
 
-import Interfaz.Fabrica_elementos_interfaz;
-import Interfaz.Linea_conectora;
-import Interfaz.Nodo;
-import javafx.scene.shape.Line;
+import Interfaz.drwazelog.Linea_conectora;
+import Interfaz.drwazelog.Nodo;
 
-import java.security.cert.TrustAnchor;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Una clase que representa el grafo, tiene una lista de nodos y de arcos

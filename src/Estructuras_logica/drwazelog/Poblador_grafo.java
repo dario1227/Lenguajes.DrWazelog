@@ -1,8 +1,8 @@
-package Estructuras_logica;
+package Estructuras_logica.drwazelog;
 
-import Interfaz.Fabrica_elementos_interfaz;
-import Interfaz.Nodo;
-import Prolog.Conexion;
+import Interfaz.drwazelog.Fabrica_elementos_interfaz;
+import Interfaz.drwazelog.Nodo;
+import Prolog.drwazelog.Conexion;
 
 import java.util.ArrayList;
 

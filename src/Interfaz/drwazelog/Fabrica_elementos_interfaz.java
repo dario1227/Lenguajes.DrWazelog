@@ -1,4 +1,4 @@
-package Interfaz;
+package Interfaz.drwazelog;
 
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;

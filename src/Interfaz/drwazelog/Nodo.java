@@ -1,7 +1,7 @@
-package Interfaz;
+package Interfaz.drwazelog;
 
-import Estructuras_logica.Grafo;
-import Prolog.Conexion;
+import Estructuras_logica.drwazelog.Grafo;
+import Prolog.drwazelog.Conexion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -213,19 +213,19 @@ public class Nodo  {
     private EventHandler<ActionEvent> evento_3 = (t)->
     {
         Conexion conectado = new Conexion();
-        paint_Nodes.destino = this;
-        if(paint_Nodes.origen !=null  && paint_Nodes.destino!=null){
-            ArrayList<String> camino = conectado.getCamino("['"+paint_Nodes.destino.getnode_name()+"']",paint_Nodes.origen.getnode_name());
+        Paint_Nodes.destino = this;
+        if(Paint_Nodes.origen !=null  && Paint_Nodes.destino!=null){
+            ArrayList<String> camino = conectado.getCamino("['"+ Paint_Nodes.destino.getnode_name()+"']", Paint_Nodes.origen.getnode_name());
             if(camino==null ){
-                if(paint_Nodes.origen.equals(paint_Nodes.destino)){
+                if(Paint_Nodes.origen.equals(Paint_Nodes.destino)){
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Error");
                     alert.setHeaderText(null);
                     alert.setContentText("Error el nodo de origen no puede ser igual al de llegada");
                     alert.showAndWait();
-                    paint_Nodes.destino = null;
-                    paint_Nodes.origen = null;
-                    paint_Nodes.reset();
+                    Paint_Nodes.destino = null;
+                    Paint_Nodes.origen = null;
+                    Paint_Nodes.reset();
                     return;
                 }
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -234,27 +234,27 @@ public class Nodo  {
                 alert.setContentText("No existe un camino entre los dos lugares");
 
                 alert.showAndWait();
-                paint_Nodes.destino = null;
-                paint_Nodes.origen = null;
-                paint_Nodes.destino = null;
-                paint_Nodes.origen = null;
-                paint_Nodes.reset();
+                Paint_Nodes.destino = null;
+                Paint_Nodes.origen = null;
+                Paint_Nodes.destino = null;
+                Paint_Nodes.origen = null;
+                Paint_Nodes.reset();
                 return;}
-            if(paint_Nodes.origen.equals(paint_Nodes.destino)){
+            if(Paint_Nodes.origen.equals(Paint_Nodes.destino)){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Error");
                 alert.setHeaderText(null);
                 alert.setContentText("Error el nodo de origen no puede ser igual al de llegada");
 
                 alert.showAndWait();
-                paint_Nodes.destino = null;
-                paint_Nodes.origen = null;
+                Paint_Nodes.destino = null;
+                Paint_Nodes.origen = null;
 
-                paint_Nodes.reset();
+                Paint_Nodes.reset();
                 return;
             }
 
-            paint_Nodes.pintar_camino(camino);
+            Paint_Nodes.pintar_camino(camino);
         }
 
     };
@@ -264,22 +264,22 @@ public class Nodo  {
     private EventHandler<ActionEvent> evento_1 = (t)->
     {
         Conexion conectaod = new Conexion();
-        paint_Nodes.origen = this;
-        if(paint_Nodes.origen !=null  && paint_Nodes.destino!=null){
+        Paint_Nodes.origen = this;
+        if(Paint_Nodes.origen !=null  && Paint_Nodes.destino!=null){
 
-            ArrayList<String> camino = conectaod.getCamino("['"+paint_Nodes.destino.getnode_name()+"']",paint_Nodes.origen.getnode_name());
+            ArrayList<String> camino = conectaod.getCamino("['"+ Paint_Nodes.destino.getnode_name()+"']", Paint_Nodes.origen.getnode_name());
             if(camino==null ){
-                if(paint_Nodes.destino.equals(paint_Nodes.origen)){
+                if(Paint_Nodes.destino.equals(Paint_Nodes.origen)){
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Error");
                     alert.setHeaderText(null);
                     alert.setContentText("Error el nodo de origen no puede ser igual al de llegada");
 
                     alert.showAndWait();
-                    paint_Nodes.reset();
-                    paint_Nodes.destino = null;
-                    paint_Nodes.origen = null;
-                    paint_Nodes.reset();
+                    Paint_Nodes.reset();
+                    Paint_Nodes.destino = null;
+                    Paint_Nodes.origen = null;
+                    Paint_Nodes.reset();
                     return;
                 }
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -287,26 +287,26 @@ public class Nodo  {
                 alert.setHeaderText(null);
                 alert.setContentText("No existe un camino entre los dos lugares");
                 alert.showAndWait();
-                paint_Nodes.destino = null;
-                paint_Nodes.origen = null;
-                paint_Nodes.reset();
+                Paint_Nodes.destino = null;
+                Paint_Nodes.origen = null;
+                Paint_Nodes.reset();
                 return;
             }
-            if(paint_Nodes.origen.equals(paint_Nodes.destino)){
+            if(Paint_Nodes.origen.equals(Paint_Nodes.destino)){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Error");
                 alert.setHeaderText(null);
                 alert.setContentText("Error el nodo de origen no puede ser igual al de llegada");
                 alert.showAndWait();
-                paint_Nodes.destino = null;
-                paint_Nodes.origen = null;
-                paint_Nodes.reset();
+                Paint_Nodes.destino = null;
+                Paint_Nodes.origen = null;
+                Paint_Nodes.reset();
                 return;
             }
             if (camino==null){
                 return;
             }
-            paint_Nodes.pintar_camino(camino);
+            Paint_Nodes.pintar_camino(camino);
         }
 
     };

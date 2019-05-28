@@ -1,6 +1,6 @@
-package Interfaz;
+package Interfaz.drwazelog;
 
-import Estructuras_logica.Grafo;
+import Estructuras_logica.drwazelog.Grafo;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.Random;
  * esta clase lo que hace es alamcenar un nodo de destino y de origen, junto al camino que hay entre ellos
  * para de esta forma "pintar" el camino anteriormente dicho
  */
-public class paint_Nodes {
+public class Paint_Nodes {
     public static Nodo destino;
     public static Nodo origen;
     public static ArrayList<Nodo> caminos = new ArrayList<>();

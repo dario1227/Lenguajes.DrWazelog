@@ -1,4 +1,4 @@
-package Prolog;
+package Prolog.drwazelog;
 
 
 import org.jpl7.Query;

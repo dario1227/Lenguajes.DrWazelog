@@ -1,4 +1,4 @@
-package Interfaz;
+package Interfaz.drwazelog;
 
 public class Controller {
 }
