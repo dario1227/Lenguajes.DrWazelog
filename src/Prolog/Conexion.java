@@ -9,19 +9,24 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
-
 public class Conexion {
-    // Funcion que recibe un string de lugares que luego son parseados para que elimine los espacios y retorne uns array de esto
-    private ArrayList<String>  parse(String s){
-        int x=s.length();
+    /**
+     *
+     * @param result1 es el resultado de la consulta de prolog con espacios
+     * @return retorna un ArrayList con los lugares
+     */
+    private ArrayList<String>  parse(String result1){
+
+        int x=result1.length();
         int i=0;
         String data="";
         ArrayList<String> result=new ArrayList<>();
         while(x!=i){
-            //elimina espacios
-            String c= Character.toString(s.charAt(i));{
+            String c= Character.toString(result1.charAt(i));{
                 if (c.equals(" ")){
-                    //caso especial de san jose
+                    /*
+                    caso especial de san jose
+                     */
                     if (data.equals("san")){
                         data+=" ";
                     }
@@ -40,15 +45,19 @@ public class Conexion {
         return result;
 
     }
-//La consulta retorna el resultado con varios caracteres innecesarios, asi que los elimina, recibe el resultado de la
-//consulta y retorna el resultado limpio
-    private String getResult(String s){
-        int x=s.length();
+
+    /**
+     *
+     * @param data el resultado de la consulta con los caracteres innecesarios
+     * @return string con el resultado que se necesita
+     */
+    private String getResult(String data){
+        int x=data.length();
         int i=0;
         String result="";
         while(x!=i){
             //elimina todos los carcteres innecesarios
-            String c= Character.toString(s.charAt(i));{
+            String c= Character.toString(data.charAt(i));{
                 if (c.equals("(") || c.equals(")")|| c.equals("|")|| c.equals("'")|| c.equals(",")|| c.equals("[") || c.equals("]")){
                     result+="";
                 }
@@ -61,7 +70,11 @@ public class Conexion {
         return result;
 
     }
-    //consulta los lugares que estan en los hechos, retorna un array de los,lugares
+
+    /**
+     *
+     * @return un ArrayList con todos los luagres definidos en el archivo de prolog
+     */
     public ArrayList<String> getLugares(){
         String prog="consult('Lugares.pl')";//consulta prolog
         Query q1=new Query(prog);
@@ -76,7 +89,11 @@ public class Conexion {
         System.out.println(result);
         return result;
     }
-    //consulta todos los arcos existentes, retonrna una matriz con los arrays de los arcos
+
+    /**
+     *
+     * @return una Matriz de Arrays con todos los arcos disponibles entre los lugares
+     */
     public ArrayList<ArrayList<String>> getArcos(){
         String prog="consult('Arcos.pl')";//consulta prolog
         Query q1=new Query(prog);
@@ -96,21 +113,39 @@ public class Conexion {
         return result;
 
     }
-    //Agrega un lugar al archivo de prolog, recibe el nombre del lugar
+
+    /**
+     *
+     * @param lugar nombre del lugar que se va a agregar
+     * @throws IOException en caso que haya un problema al abrir el documento
+     */
     public void addLugar(String lugar) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter("Lugares.pl",true));
         String data="\n"+"lugar"+"(["+"'"+lugar+"'"+"]).";
         writer.append(data);
         writer.close();
     }
-    //agrega un arco, recibe el inicio, el destino y la distancia respectiva
+
+    /**
+     *
+     * @param inicio lugar de inicio del camino
+     * @param destino nodo final del camino
+     * @param distancia valor que refleja lo largo del camino
+     * @throws IOException en caso que ocurra un problema al abrir el file
+     */
     public void addArco(String inicio,String destino,int distancia) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter("Arcos.pl",true));
         String data="\n"+"edge("+"'"+inicio+"'"+","+"'"+destino+"'"+","+distancia+").";
         writer.append(data);
         writer.close();
     }
-    //retorna un array del camino mas corto, recibe un string del array de los destinos y su punto de origen
+
+    /**
+     *
+     * @param destinos un string del array de los destinos disponibles
+     * @param origen el lugar origen del viaje
+     * @return retorna Un Array del camino mas corto
+     */
     public ArrayList<String> getCamino(String destinos, String origen){
         try {
 
