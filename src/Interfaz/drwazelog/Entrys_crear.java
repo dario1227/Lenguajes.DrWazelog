@@ -9,6 +9,7 @@ public class Entrys_crear {
     String nombre_destino;
     String peso;
 
+
     /**
      * Crea un entry y le asigna sus nombres
      * @param nombre_nuevo
