@@ -1,17 +1,24 @@
 package Interfaz.drwazelog;
 
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.stage.Stage;
 
+import java.io.InputStream;
 import java.util.Random;
 
 public   class Fabrica_elementos_interfaz {
     public static Pane canvas_princ;
+    public static Fabrica_elementos_interfaz  fabrica = new Fabrica_elementos_interfaz();
 
     public static void setCanvas_princ(Pane canvas){
         canvas_princ = canvas;
@@ -93,5 +100,28 @@ public   class Fabrica_elementos_interfaz {
         label.toFront();
         Linea_conectora linea_conectora = new Linea_conectora(origen,destino,peso,label,line);
     return linea_conectora;
+    }
+    public  static ImageView get_Image(int numero){
+        return fabrica.getImage(numero);
+    }
+    public ImageView getImage(int numero){
+        if (numero==1){ return new ImageView(new Image(getClass().getResourceAsStream("Images\\sel_Ciudad.png")));}
+        if (numero==2){ return new ImageView(new Image(getClass().getResourceAsStream("Images\\sel_Llegada.png")));}
+        if (numero==3){ return new ImageView(new Image(getClass().getResourceAsStream("Images\\Ciudad.png")));}
+        if (numero==4){ return new ImageView(new Image(getClass().getResourceAsStream("Images\\Calle.png")));}
+        if (numero==5){ return new ImageView(new Image(getClass().getResourceAsStream("Images\\Calles.png")));}
+        if (numero==6){ return new ImageView(new Image(getClass().getResourceAsStream("Images\\App.png")));}
+        if (numero==7){ return new ImageView(new Image(getClass().getResourceAsStream("Images\\Errores.png")));}
+        return null;
+    }
+    public static void alerta(String titulo,String header,String cuerpo){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(titulo);
+        alert.setHeaderText(header);
+        alert.setContentText(cuerpo);
+        Stage stage2 = (Stage)alert.getDialogPane().getScene().getWindow().getScene().getWindow();
+        stage2.getIcons().add(Fabrica_elementos_interfaz.get_Image(7).getImage());
+        alert.setGraphic(Fabrica_elementos_interfaz.get_Image(7));
+        alert.showAndWait();
     }
 }

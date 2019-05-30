@@ -9,3 +9,5 @@ edge('guanacaste','puntarenas',135).
 edge('puntarenas','sanjose',97).
 edge('puntarenas','alajuela',98).
 edge('limon','sanjose',161).
+edge('panama','sanjose',178).
+edge('puntarenas','panama',23).

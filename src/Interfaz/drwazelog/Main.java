@@ -14,6 +14,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Graph");
         Pane panel = new Pane();
+        primaryStage.getIcons().add(Fabrica_elementos_interfaz.get_Image(6).getImage());
         Fabrica_elementos_interfaz.setCanvas_princ(panel);
         Scene escena_princ = new Scene(panel, 800, 800);
         panel.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));

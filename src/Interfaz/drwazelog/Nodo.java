@@ -11,10 +11,14 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -111,16 +115,20 @@ public class Nodo  {
     public ContextMenu menucontexto_config(){
         ContextMenu contextMenu = new ContextMenu();
         MenuItem menu1 = new MenuItem("Seleccionar punto partida");
+        menu1.setGraphic(Fabrica_elementos_interfaz.get_Image(1));
         menu1.setOnAction(evento_1);
         MenuItem menu2 = new MenuItem("Seleccionar punto llegada");
+        menu2.setGraphic(Fabrica_elementos_interfaz.get_Image(2));
         menu2.setOnAction(evento_3);
         MenuItem menu3 = new MenuItem("Crear nuevo lugar");
         menu3.setOnAction(evento_2);
+        menu3.setGraphic(Fabrica_elementos_interfaz.get_Image(3));
         MenuItem menu4 = new MenuItem("Añadir calle");
         menu4.setOnAction(evento4);
-        menu2.setOnAction(evento_3);
+        menu4.setGraphic(Fabrica_elementos_interfaz.get_Image(4));
         MenuItem menu5 = new MenuItem("Calles");
         menu5.setOnAction(evento_5);
+        menu5.setGraphic(Fabrica_elementos_interfaz.get_Image(5));
         contextMenu.getItems().addAll(menu1,menu2,menu3,menu4,menu5);
         return contextMenu;
     }
@@ -139,6 +147,9 @@ public class Nodo  {
         TextField textField = new TextField("Nombre Lugar");
         TextField textField2 = new TextField("Km camino");
         dialogPane.setContent(new VBox(8, textField, textField2));
+        Stage stage = (Stage)dialog.getDialogPane().getScene().getWindow().getScene().getWindow();
+        stage.getIcons().add(Fabrica_elementos_interfaz.get_Image(3).getImage());
+        dialogPane.setGraphic(Fabrica_elementos_interfaz.get_Image(3));
         dialog.setResultConverter((ButtonType button) -> {
             if (button == ButtonType.OK) {
                 if (button == ButtonType.OK) {
@@ -155,33 +166,23 @@ public class Nodo  {
             try{
                 x = Integer.parseInt(results.peso);
             }catch (Exception e){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Kilometros");
-                alert.setHeaderText("Error,Km numero");
-                alert.setContentText("Los kilometros deben de ser un numero entero");
-                alert.showAndWait();
+                Fabrica_elementos_interfaz.alerta("Kilometros","Error,Km numero","Los kilometros deben de ser un numero entero");
+
                 return;
             }
-            if (results.peso ==null || results.peso=="Km camino" ||results.peso==""){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("No numero");
-                alert.setHeaderText("Error,Km numero");
-                alert.setContentText("Debe de insertar un kilometraje");
-                alert.showAndWait();
+            if (results.peso ==null || results.peso.equals("Km camino") ||results.peso==""){
+                Fabrica_elementos_interfaz.alerta("No numero","Error,Km numero","Debe de insertar un kilometraje");
                 return;
             }
-            if(results.nombre_nuevo.isEmpty() || results.nombre_nuevo=="Nombre Lugar"||results.nombre_nuevo ==null){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("No nombre");
-                alert.setHeaderText("Debe insertarse nombre");
-                alert.showAndWait();
+            if(results.nombre_nuevo.isEmpty() || results.nombre_nuevo.equals("Nombre Lugar")||results.nombre_nuevo ==null){
+                Fabrica_elementos_interfaz.alerta("No nombre","Debe insertarse nombre",null);
+
                 return;
             }
             if(Grafo.existencia(results.nombre_nuevo)){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Ya existe");
-                alert.setHeaderText("El nodo ya existe, el programa no diferencia entre mayuscula/espacios/minusculas");
-                alert.showAndWait();
+                Fabrica_elementos_interfaz.alerta("Ya existe","El nodo ya existe, el programa no diferencia entre mayuscula/espacios/minusculas",null);
+
+
                 return;
             }
             Conexion conectado = new Conexion();
@@ -195,11 +196,8 @@ public class Nodo  {
                 Fabrica_elementos_interfaz.crear_linea(Grafo.get_Nodo(nodo),Grafo.get_Nodo(results.nombre_destino),x);
 
             } catch (IOException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Archivo no encontrado");
-                alert.setHeaderText("El archivo de prolog inexistente/corrupto");
-                alert.setContentText("El archivo de prolog esta corrupto o es inexistente");
-                alert.showAndWait();
+                Fabrica_elementos_interfaz.alerta("Archivo no encontrado","El archivo de prolog inexistente/corrupto","El archivo de prolog esta corrupto o es inexistente");
+
                 return;
             }
         });
@@ -218,22 +216,13 @@ public class Nodo  {
             ArrayList<String> camino = conectado.getCamino("['"+ Paint_Nodes.destino.getnode_name()+"']", Paint_Nodes.origen.getnode_name());
             if(camino==null ){
                 if(Paint_Nodes.origen.equals(Paint_Nodes.destino)){
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Error");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Error el nodo de origen no puede ser igual al de llegada");
-                    alert.showAndWait();
+                    Fabrica_elementos_interfaz.alerta("Error",null,"Error el nodo de origen no puede ser igual al de llegada");
                     Paint_Nodes.destino = null;
                     Paint_Nodes.origen = null;
                     Paint_Nodes.reset();
                     return;
                 }
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("No existe un camino entre los dos lugares");
-
-                alert.showAndWait();
+                Fabrica_elementos_interfaz.alerta("Error",null,"No existe un camino entre los dos lugares");
                 Paint_Nodes.destino = null;
                 Paint_Nodes.origen = null;
                 Paint_Nodes.destino = null;
@@ -241,12 +230,7 @@ public class Nodo  {
                 Paint_Nodes.reset();
                 return;}
             if(Paint_Nodes.origen.equals(Paint_Nodes.destino)){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Error el nodo de origen no puede ser igual al de llegada");
-
-                alert.showAndWait();
+                Fabrica_elementos_interfaz.alerta("Error",null,"Error el nodo de origen no puede ser igual al de llegada");
                 Paint_Nodes.destino = null;
                 Paint_Nodes.origen = null;
 
@@ -270,34 +254,21 @@ public class Nodo  {
             ArrayList<String> camino = conectaod.getCamino("['"+ Paint_Nodes.destino.getnode_name()+"']", Paint_Nodes.origen.getnode_name());
             if(camino==null ){
                 if(Paint_Nodes.destino.equals(Paint_Nodes.origen)){
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Error");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Error el nodo de origen no puede ser igual al de llegada");
-
-                    alert.showAndWait();
+                    Fabrica_elementos_interfaz.alerta("Error",null,"Error el nodo de origen no puede ser igual al de llegada");
                     Paint_Nodes.reset();
                     Paint_Nodes.destino = null;
                     Paint_Nodes.origen = null;
                     Paint_Nodes.reset();
                     return;
                 }
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("No existe un camino entre los dos lugares");
-                alert.showAndWait();
+                Fabrica_elementos_interfaz.alerta("Error",null,"No existe un camino entre los dos lugares");
                 Paint_Nodes.destino = null;
                 Paint_Nodes.origen = null;
                 Paint_Nodes.reset();
                 return;
             }
             if(Paint_Nodes.origen.equals(Paint_Nodes.destino)){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Error el nodo de origen no puede ser igual al de llegada");
-                alert.showAndWait();
+                Fabrica_elementos_interfaz.alerta("Error",null,"Error el nodo de origen no puede ser igual al de llegada");
                 Paint_Nodes.destino = null;
                 Paint_Nodes.origen = null;
                 Paint_Nodes.reset();
@@ -326,6 +297,9 @@ public class Nodo  {
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
         TextField textField2 = new TextField("Km camino");
         dialogPane.setContent(new VBox(8, textField2, comboBox));
+        Stage stage = (Stage)dialog.getDialogPane().getScene().getWindow().getScene().getWindow();
+        stage.getIcons().add(Fabrica_elementos_interfaz.get_Image(4).getImage());
+        dialogPane.setGraphic(Fabrica_elementos_interfaz.get_Image(4));
         dialog.setResultConverter((ButtonType button) -> {
             if (button == ButtonType.OK) {
                 return new Entrys_crear(this.node_name,comboBox.getValue(),textField2.getText());
@@ -338,28 +312,17 @@ public class Nodo  {
             try{
                 x = Integer.parseInt(results.peso);
             }catch (Exception e){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Kilometros");
-                alert.setHeaderText("Error,Km numero");
-                alert.setContentText("Los kilometros deben de ser un numero entero");
-                alert.showAndWait();
+                Fabrica_elementos_interfaz.alerta("Kilometros","Error,Km numero","Los kilometros deben de ser un numero entero");
                 return;
             }
 
             if(Grafo.sacaarcos(Grafo.get_Nodo(results.nombre_nuevo),Grafo.get_Nodo(results.nombre_destino))!=(null)){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("La calle ya existe");
-                alert.showAndWait();
+
+                Fabrica_elementos_interfaz.alerta("Error",null,"La calle ya existe");
                 return;
             }
             if (results.peso ==null || results.peso=="Km camino" ||results.peso==""){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("No numero");
-                alert.setHeaderText("Error,Km numero");
-                alert.setContentText("Debe de insertar un kilometraje");
-                alert.showAndWait();
+                Fabrica_elementos_interfaz.alerta("No numero","Error,Km numero","Debe de insertar un kilometraje");
                 return;
             }
             Conexion conectado = new Conexion();
@@ -371,11 +334,7 @@ public class Nodo  {
                 Fabrica_elementos_interfaz.crear_linea(Grafo.get_Nodo(nodo),Grafo.get_Nodo(results.nombre_destino),x);
 
             } catch (IOException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Archivo no encontrado");
-                alert.setHeaderText("El archivo de prolog inexistente/corrupto");
-                alert.setContentText("El archivo de prolog esta corrupto o es inexistente");
-                alert.showAndWait();
+                Fabrica_elementos_interfaz.alerta("Archivo no encontrado","El archivo de prolog inexistente/corrupto","El archivo de prolog esta corrupto o es inexistente");
                 return;
             }
         });
@@ -397,6 +356,9 @@ public class Nodo  {
         }
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        Stage stage = (Stage)dialog.getDialogPane().getScene().getWindow().getScene().getWindow();
+        stage.getIcons().add(Fabrica_elementos_interfaz.get_Image(5).getImage());
+        dialogPane.setGraphic(Fabrica_elementos_interfaz.get_Image(5));
         dialogPane.setContent(box);
         dialog.showAndWait();
     };
